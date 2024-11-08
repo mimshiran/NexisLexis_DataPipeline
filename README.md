@@ -1,14 +1,17 @@
 # NexisLexis_DataPipeline
 
-This repository provides tools for validating, extracting, and processing JSON-formatted media transcripts, specifically tailored for bulk data scraped from Lexis Nexis. It includes functions for parsing text and metadata, identifying errors, and handling hierarchical data structures, enabling streamlined analysis of media content.
+This repository provides tools for validating, extracting, processing, and segmenting JSON-formatted media transcripts, specifically tailored for bulk data scraped from Lexis Nexis. It includes functions for parsing text and metadata, identifying errors, handling hierarchical data structures, and segmenting transcripts by speaker, enabling streamlined analysis of media content with structured speaker metadata.
 
 ## Features
 
-- **JSON Structure Validation**: Checks the structure of each JSON file to ensure required fields are present.
-- **Data Extraction**: Extracts key information, including `result ID`, `title`, `byline`, `date`, `source name`, `highlights`, `headlines`, `guest names`, and `body content`.
-- **Error Detection**: Identifies and logs files with structural issues or missing content.
-- **Text Processing**: Cleans and formats extracted text, including removing video clips and timestamp markers.
+- **JSON Structure Validation**: Checks each JSON file to ensure required fields are present.
+- **Data Extraction**: Extracts key metadata and content, including:
+  - `result ID`, `title`, `byline`, `date`, `source name`, `highlights`, `headlines`, `guest names`, and `body content`.
+- **Error Detection**: Identifies and logs files with structural issues or missing content for easier debugging.
+- **Text Processing**: Cleans and formats extracted text, removing video clips and timestamp markers.
+- **Speaker Segmentation**: Segments transcripts by speaker using regex patterns, producing structured text segments with associated metadata.
 - **Multimedia Parsing**: Uses BeautifulSoup to parse and extract text elements from HTML-encoded content within JSON files.
+
 
 ## Prerequisites
 
@@ -35,13 +38,21 @@ This repository provides tools for validating, extracting, and processing JSON-f
    python parse_transcripts.py
    ```
 
-4. **Output**:
-   Extracted data will be stored in lists (or can be configured to save to a CSV/Excel file as needed).
+4. **Run Speaker Segmentation**:
+   To process and segment speaker data, run the segmentation script:
+   ```bash
+   python parse_segment_speakers.py
+   ```
+
+5. **Output**:
+   - Extracted metadata and cleaned content will be stored in the specified output directory.
+   - Speaker-segmented data will be saved in a Parquet file, making it efficient for further analysis.
 
 ## Folder Structure
 
 - **/data**: Directory to store your JSON files.
 - **/output**: (Optional) Directory to save processed data files.
+- **/segments**: Optional folder for keeping modularized scripts.
 
 ## Error Handling
 
